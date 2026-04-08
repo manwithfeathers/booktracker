@@ -4,20 +4,23 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import axios from "axios"
+import { Navigate } from "react-router-dom"
 
 
 export default function Signup() {
 
   const [username , setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [user , setUser] = useState(null)
   
   const submitHandler = (e) => {
     e.preventDefault()
    
-    axios.post("http://localhost:8080/signup", {username: username, password: password}).then((data) => {
-      console.log(data)
+    axios.post("http://localhost:8080/signup", {username: username, password: password}).then((res) => {
+       
       setUsername("")
       setPassword("")
+      setUser(res.data.username)
     })
   }
 
@@ -35,6 +38,7 @@ export default function Signup() {
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button">Cancel</button>
           </div>
 
+            { user ? <Navigate to="/profile" replace={true} state={user} /> : null }
           
 
         </form>

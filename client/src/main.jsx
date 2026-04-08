@@ -7,6 +7,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Signin from './Signin.jsx'
 import Signup from './Signup.jsx'
 import RootLayout from './RootLayout.jsx'
+import Error from './Error.jsx'
+import Profile from './Profile.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements((
@@ -14,6 +16,9 @@ const router = createBrowserRouter(
       <Route path="/" element={<App/>} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Signin />} />
+       {/* <Route path="*" element={<Error />} /> */}
+      <Route path="/profile" element ={<Profile/>} />
+     
 
     </Route>
     

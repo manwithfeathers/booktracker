@@ -4,6 +4,7 @@ const cors = require("cors")
 const mysql = require("mysql2/promise")
 const bodyParser = require("body-parser")
 
+
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -26,7 +27,7 @@ app.post("/signup", async (req, res) => {
     try {
         
         const logged = await db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, password])
-        console.log(logged)
+        res.send({username: username})
          
     } catch (err) {
         console.log(err)
