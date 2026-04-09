@@ -37,11 +37,13 @@ app.post("/signup", async (req, res) => {
 
 app.post("/addbook", async (req, res) => {
     const title = req.body.title
-    const author = req.body.author
+    const authorFirstname = req.body.authorFirstname
+    const authorSurname = req.body.authorSurname
+
     try {
 
         
-        const logged = await db.query("INSERT INTO books (title, author) VALUES (?, ?)", [title, author])
+        const logged = await db.query("INSERT INTO books (title, author_firstname, author_surname) VALUES (?, ?, ?)", [title, authorFirstname, authorSurname])
         
          
     } catch (err) {

@@ -10,8 +10,10 @@ export default function ListBooks() {
         
         axios.get("http://localhost:8080/listbooks").then((res) => {
         const rawBooks = res.data[0]
-        rawBooks.sort((a,b) => a.author.localeCompare(b.author))
+       
+        rawBooks.sort((a,b) => a.author_surname.localeCompare(b.author_surname))
         setBooks(rawBooks)
+    
     })
 
     }, [])
@@ -23,7 +25,7 @@ export default function ListBooks() {
             
 
             {books.map((book) => (
-                <h4 className=" font-medium text-white text-left pl-10" key={book.id}>{book.title} by {book.author}</h4>
+                <h4 className=" font-medium text-white text-left pl-10" key={book.id}>{book.title} by {book.author_firstname} {book.author_surname}</h4>
                 
             ))}
         </>
