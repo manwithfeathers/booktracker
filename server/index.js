@@ -35,6 +35,37 @@ app.post("/signup", async (req, res) => {
 
 })
 
+app.post("/addbook", async (req, res) => {
+    const title = req.body.title
+    const author = req.body.author
+    try {
+
+        
+        const logged = await db.query("INSERT INTO books (title, author) VALUES (?, ?)", [title, author])
+        
+         
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
+app.get("/listbooks", async (req, res) => {
+    // const title = req.body.title
+    // const author = req.body.author
+    try {
+
+        
+        const books = await db.query("SELECT * FROM books")
+        res.send(books)
+        
+         
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
 app.listen(8080, () => {
     console.log("listening on port 8080")
 })

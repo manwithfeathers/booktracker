@@ -9,6 +9,9 @@ import Signup from './Signup.jsx'
 import RootLayout from './RootLayout.jsx'
 import Error from './Error.jsx'
 import Profile from './Profile.jsx'
+import AddBook from './AddBook.jsx'
+import ShowBook from './ShowBook.jsx'
+import ListBooks from './ListBooks.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements((
@@ -18,6 +21,10 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<Signin />} />
        {/* <Route path="*" element={<Error />} /> */}
       <Route path="/profile" element ={<Profile/>} />
+      <Route path="/addbook" element={<AddBook />} />
+      <Route path="/showbook" element={<ShowBook/>} />
+      <Route path="/listbooks" element={<ListBooks/>} />
+
      
 
     </Route>

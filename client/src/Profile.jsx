@@ -8,8 +8,8 @@ const Profile = () => {
 
     return (
         <div>
-            <h3>Profile</h3>
-            { user ? <h4>hi, {user}!</h4> : null}
+            
+            { user ? <h4 className="text-2xl text-center text-white">Hi, {user}!</h4> : null}
         </div>
 
     )

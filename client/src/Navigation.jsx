@@ -11,11 +11,18 @@ export default function Navigation() {
             </Link>
             <ul className="flex items-center h-16 text-xl">
                 <li>
+                    <Link to="/listbooks">Books</Link>
+                </li>
+                 <li className="pl-20">
+                    <Link to="/addbook">Add Book</Link>
+                </li>
+                <li className="pl-20">
                     <Link to="/signup">Sign Up</Link>
                 </li>
                 <li className="pl-20">
                     <Link to="/signin">Sign In</Link>
                 </li>
+
 
             </ul>
         </nav>
