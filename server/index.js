@@ -68,6 +68,19 @@ app.get("/listbooks", async (req, res) => {
 
 })
 
+app.delete("/deletebook", async(req, res) => {
+    
+    const id = req.body.id
+    try {
+        await db.query("DELETE FROM books WHERE book_id = ?" , [id])
+        res.send({ success: true }) 
+    } catch(err) {
+        console.log(err)
+    }
+})
+
+
+
 app.listen(8080, () => {
     console.log("listening on port 8080")
 })
