@@ -69,6 +69,24 @@ app.get("/listbooks", async (req, res) => {
 
 })
 
+app.get("/showmybooks", async (req, res) => {
+    
+    const user = req.query.user
+    
+    // const author = req.body.author
+    try {
+
+        
+        const books = await db.query("SELECT * FROM books WHERE added_by = ?", [user])
+        res.send(books)
+        
+         
+    } catch (err) {
+        console.log(err)
+    }
+
+})
+
 app.delete("/deletebook", async(req, res) => {
     
     const id = req.body.id
