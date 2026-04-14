@@ -1,6 +1,11 @@
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
+import {logout} from "./store/authSlice"
+
 export default function Navigation() {
+    const loggedIn = useSelector((state) => state.auth.isLoggedIn)
+    const dispatch = useDispatch()
 
     return (
         <nav className="flex items-center justify-between w-full h-16 py-2 text-white border-b px-28 mb-36 border-cyan-400">
@@ -13,18 +18,34 @@ export default function Navigation() {
                 <li>
                     <Link to="/listbooks">Books</Link>
                 </li>
-                 <li className="pl-20">
-                    <Link to="/addbook">Add Book</Link>
-                </li>
+            {!loggedIn ? 
+            <>
+                
+                
                 <li className="pl-20">
                     <Link to="/signup">Sign Up</Link>
                 </li>
                 <li className="pl-20">
                     <Link to="/signin">Sign In</Link>
                 </li>
+           </>
+            :
 
+           <>
+                 <li className="pl-20">
+                    <Link to="/addbook">Add Book</Link>
+                </li>
+                <li className="pl-20">
+                    <Link to="/profile">Profile</Link>
+                </li>
+                <li className="pl-20">
+                    <Link to="/" onClick={()=> dispatch(logout())}>Logout</Link>
+                </li>
 
-            </ul>
+            </>
+           
+            }
+             </ul>
         </nav>
     )
 }

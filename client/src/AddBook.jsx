@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux"
 
 import './App.css'
 import axios from "axios"
@@ -14,6 +14,9 @@ export default function AddBook() {
     const [book, setBook] = useState(null)
 
     const user = useSelector((state) => state.auth.user)
+    const loggedIn = useSelector((state) => state.auth.isLoggedIn)
+
+  
 
   
 
@@ -24,7 +27,8 @@ export default function AddBook() {
     axios.post("http://localhost:8080/addbook", {
         title: title, 
         authorFirstname: authorFirstname,
-        authorSurname: authorSurname
+        authorSurname: authorSurname,
+        user: user,
     }).then((data) => {
       
       setTitle("")
