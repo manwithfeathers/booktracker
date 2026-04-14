@@ -12,6 +12,8 @@ import Profile from './Profile.jsx'
 import AddBook from './AddBook.jsx'
 import ShowBook from './ShowBook.jsx'
 import ListBooks from './ListBooks.jsx'
+import { store } from "./store/store.js"
+import { Provider } from "react-redux"
 
 const router = createBrowserRouter(
   createRoutesFromElements((
@@ -36,6 +38,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"))
 
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )

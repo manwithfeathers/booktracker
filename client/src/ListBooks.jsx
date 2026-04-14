@@ -35,17 +35,31 @@ export default function ListBooks() {
     
 
     return (
-        <>
-            
+        <div className="flex justify-center mt-10">
+            <table className=" border border-gray-300 table-fixed">
+                <thead>
+                    <tr>
+                        <th >Author</th>
+                        <th>Title</th>
+                        <th></th>
 
-            {books.map((book) => (
-                <div key={book.book_id}>
-                    <h4 className=" font-medium text-white text-left pl-10" >{book.title} by {book.author_firstname} {book.author_surname}</h4>
-                    
-                    <button type="button" onClick={() => deleteBook(book.book_id)}> delete </button>
-                </div>
-            ))}
-        </>
+                    </tr>
+                </thead>
+                <tbody>
+                
+
+                {books.map((book) => (
+                    <tr key={book.book_id}>
+                        <td className=" border border-gray-300 font-medium text-white  pl-10 pr-10" >{book.author_surname}, {book.author_firstname} </td>
+                        <td className=" border border-gray-300  font-medium text-white  pl-10 pr-10" >{book.title}</td>
+
+                        
+                        <td className=" px-2 py-2 border border-gray-300 "><button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => deleteBook(book.book_id)}> delete </button></td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </div>
     )
     
 }

@@ -1,27 +1,24 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
-import axios from "axios"
+import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from "react-router-dom"
-
+import { signup } from "./store/authSlice"
 
 export default function Signup() {
 
   const [username , setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [user , setUser] = useState(null)
+  const user = useSelector((state) => state.auth.user)
+  const error = useSelector((state) => state.auth.error)
+  const dispatch = useDispatch()
   
   const submitHandler = (e) => {
     e.preventDefault()
-   
-    axios.post("http://localhost:8080/signup", {username: username, password: password}).then((res) => {
-       
-      setUsername("")
+    dispatch(signup({username, password})).then((res)=> {
       setPassword("")
-      setUser(res.data.username)
-    })
+      setUsername("")
+    })   
+    
   }
 
   return (
@@ -37,8 +34,8 @@ export default function Signup() {
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="submit">Submit</button>
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button">Cancel</button>
           </div>
-
-            { user ? <Navigate to="/profile" replace={true} state={user} /> : null }
+          { error ? <p>{error}</p> : null}
+            { user ? <Navigate to="/profile" replace={true} /> : null }
           
 
         </form>

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import './App.css'
 import axios from "axios"
@@ -10,12 +11,12 @@ export default function AddBook() {
     const [ authorFirstname, setAuthorFirstname ] = useState("")
     const [ authorSurname, setAuthorSurname ] = useState("")
 
-
-
     const [book, setBook] = useState(null)
 
+    const user = useSelector((state) => state.auth.user)
+
   
-  
+
   const submitHandler = (e) => {
     e.preventDefault()
     setBook(title)
@@ -49,7 +50,7 @@ export default function AddBook() {
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button">Cancel</button>
           </div>
         
-            { book ? <Navigate to="/showbook" replace={true} state={{authorFirstname, authorSurname, title}} /> : null }
+            { book ? <Navigate to="/showbook" replace={true} state={{authorFirstname, authorSurname, title, user}} /> : null }
 
           
 
