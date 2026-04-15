@@ -14,6 +14,7 @@ import ShowBook from './ShowBook.jsx'
 import ListBooks from './ListBooks.jsx'
 import { store } from "./store/store.js"
 import { Provider } from "react-redux"
+import BookDetails from './BookDetails.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements((
@@ -26,6 +27,8 @@ const router = createBrowserRouter(
       <Route path="/addbook" element={<AddBook />} />
       <Route path="/showbook" element={<ShowBook/>} />
       <Route path="/listbooks" element={<ListBooks/>} />
+      <Route path="/bookdetails" element={<BookDetails/>} />
+
 
      
 

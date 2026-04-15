@@ -1,12 +1,16 @@
 import './App.css'
 import axios from "axios"
-import {useState, useEffect} from "react"
+import {useState, useEffect, useLocation } from "react"
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+
+
 
 export default function ListBooks() {
     const [books, setBooks] = useState([])
     const user = useSelector((state) => state.auth.user)
-    
+    const  navigate = useNavigate()
     
 
     const showMyBooks = async () => {
@@ -43,6 +47,13 @@ export default function ListBooks() {
         })
         showBooks()
     }   
+
+    const bookDetails = async (id) => {
+     
+    
+       navigate("/bookdetails", {state: {id}})
+
+    }
     
     
 
@@ -62,30 +73,33 @@ export default function ListBooks() {
 
             </div>}
             
-            
-            <table className=" border border-gray-300 table-fixed">
-                <thead>
-                    <tr>
-                        <th >Author</th>
-                        <th>Title</th>
-                        <th></th>
+             <div className="flex justify-center overflow-y-auto max-h-96 w-[600px]">
+                <table className=" border border-gray-300 table-fixed">
+                    <thead>
+                        <tr>
+                            <th >Author</th>
+                            <th>Title</th>
+                            <th></th>
+                            <th></th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                
 
-                {books.map((book) => (
-                    <tr key={book.book_id}>
-                        <td className=" border border-gray-300 font-medium text-white  pl-10 pr-10" >{book.author_surname}, {book.author_firstname} </td>
-                        <td className=" border border-gray-300  font-medium text-white  pl-10 pr-10" >{book.title}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
 
-                        
-                        <td className=" px-2 py-2 border border-gray-300 "><button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => deleteBook(book.book_id)}> delete </button></td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+                    {books.map((book) => (
+                        <tr key={book.book_id}>
+                            <td className=" border border-gray-300 font-medium text-white  pl-10 pr-10" >{book.author_surname}, {book.author_firstname} </td>
+                            <td className=" border border-gray-300  font-medium text-white  pl-10 pr-10" >{book.title}</td>
+
+                            <td className=" px-2 py-2 border border-gray-300 "><button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => deleteBook(book.book_id)}> delete </button></td>
+                            <td className=" px-2 py-2 border border-gray-300 "><button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => bookDetails(book.book_id)}> details </button></td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
     
