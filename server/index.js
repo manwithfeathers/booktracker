@@ -40,16 +40,26 @@ app.post("/addbook", async (req, res) => {
     const authorFirstname = req.body.authorFirstname
     const authorSurname = req.body.authorSurname
     const user = req.body.user
+    const review = req.body.review
+    const favourite = req.body.favourite
 
     try {
 
+    const rawUser_id = await db.query("SELECT user_id FROM users WHERE username = ?", [user])
+    const user_id = rawUser_id[0][0].user_id
+    console.log("user id", user_id)
+
         
-        const logged = await db.query("INSERT INTO books (title, author_firstname, author_surname, added_by) VALUES (?, ?, ?, ?)", [title, authorFirstname, authorSurname, user])
+    const addedBook = await db.query("INSERT INTO books (title, author_firstname, author_surname, added_by) VALUES (?, ?, ?, ?)", [title, authorFirstname, authorSurname, user])
+    const book_id = addedBook[0].insertId
+    console.log(user_id, book_id, review, favourite)
+    await db.query("INSERT INTO book_review (reviewer_id, book_id, review, favourite) VALUES (?, ?, ?, ?)", [user_id, book_id, review, favourite])
         
          
     } catch (err) {
         console.log(err)
     }
+
 
 })
 
@@ -72,11 +82,9 @@ app.get("/listbooks", async (req, res) => {
 app.get("/showmybooks", async (req, res) => {
     
     const user = req.query.user
-    
     // const author = req.body.author
     try {
 
-        
         const books = await db.query("SELECT * FROM books WHERE added_by = ?", [user])
         res.send(books)
         
@@ -85,6 +93,17 @@ app.get("/showmybooks", async (req, res) => {
         console.log(err)
     }
 
+})
+
+app.get("/bookdetails", async (req, res) => {
+    const book_id = req.query.id
+    try {
+    const bookDetails = await db.query("SELECT b.title, r.review FROM books AS b JOIN book_review AS r ON b.book_id = r.book_id WHERE b.book_id = ?", [book_id])
+
+    res.send(bookDetails[0])
+    } catch(err) {
+        res.send(err)
+    }
 })
 
 app.delete("/deletebook", async(req, res) => {

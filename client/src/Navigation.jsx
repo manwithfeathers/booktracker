@@ -5,6 +5,7 @@ import {logout} from "./store/authSlice"
 
 export default function Navigation() {
     const loggedIn = useSelector((state) => state.auth.isLoggedIn)
+    const user = useSelector((state) => state.auth.user)
     const dispatch = useDispatch()
 
     return (
@@ -15,7 +16,7 @@ export default function Navigation() {
         
             </Link>
             <ul className="flex items-center h-16 text-xl">
-                <li>
+                <li className="pl-20">
                     <Link to="/listbooks">Books</Link>
                 </li>
             {!loggedIn ? 
@@ -40,6 +41,9 @@ export default function Navigation() {
                 </li>
                 <li className="pl-20">
                     <Link to="/" onClick={()=> dispatch(logout())}>Logout</Link>
+                </li>
+                <li className="pl-20">
+                    <Link to="/profile">Hello, {user} </Link>
                 </li>
 
             </>

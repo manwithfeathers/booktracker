@@ -14,21 +14,16 @@ export default function ListBooks() {
     
 
     const showMyBooks = async () => {
-
-        if (user) { 
             
             await axios.get("http://localhost:8080/showmybooks", {params:{user: user}}).then((res) => {
             console.log(res.data)
             const rawBooks = res.data[0]
         
-       
             rawBooks.sort((a,b) => a.author_surname.localeCompare(b.author_surname))
             setBooks(rawBooks)
 
             })
-        } else {
-            alert("no user")
-        }
+       
     }
 
     const showBooks = async () => {
@@ -49,9 +44,13 @@ export default function ListBooks() {
     }   
 
     const bookDetails = async (id) => {
+
+        let rawDetails = await axios.get("http://localhost:8080/bookdetails", {params: {id}})
+        console.log("raw deets", rawDetails)
+        let details = rawDetails.data[0]
+        console.log(details)
      
-    
-       navigate("/bookdetails", {state: {id}})
+       navigate("/bookdetails", {state: {details}})
 
     }
     
@@ -73,7 +72,7 @@ export default function ListBooks() {
 
             </div>}
             
-             <div className="flex justify-center overflow-y-auto max-h-96 w-[600px]">
+             <div className="justify-center overflow-y-auto max-h-96 w-[600px]">
                 <table className=" border border-gray-300 table-fixed">
                     <thead>
                         <tr>
