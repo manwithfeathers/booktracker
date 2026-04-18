@@ -21,8 +21,6 @@ export default function AddBook() {
 
   
 
-  
-
   const submitHandler = (e) => {
     e.preventDefault()
     setBook(title)

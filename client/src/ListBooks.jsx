@@ -1,6 +1,7 @@
 import './App.css'
 import axios from "axios"
-import {useState, useEffect, useLocation } from "react"
+import {useState, useEffect } from "react"
+import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -36,7 +37,8 @@ export default function ListBooks() {
     }
 
     const deleteBook = async (id) => {
-        console.log("id", id)
+
+       
         await axios.delete("http://localhost:8080/deletebook", {
             data: {id},
         })
@@ -46,11 +48,18 @@ export default function ListBooks() {
     const bookDetails = async (id) => {
 
         let rawDetails = await axios.get("http://localhost:8080/bookdetails", {params: {id}})
-        console.log("raw deets", rawDetails)
         let details = rawDetails.data[0]
-        console.log(details)
      
        navigate("/bookdetails", {state: {details}})
+
+    }
+
+    const addNotes = async (id) => {
+
+        
+        
+       
+        navigate("/addnotes", {state: {id}})
 
     }
     
@@ -94,6 +103,8 @@ export default function ListBooks() {
 
                             <td className=" px-2 py-2 border border-gray-300 "><button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => deleteBook(book.book_id)}> delete </button></td>
                             <td className=" px-2 py-2 border border-gray-300 "><button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => bookDetails(book.book_id)}> details </button></td>
+                            <td className=" px-2 py-2 border border-gray-300 "><button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => addNotes(book.book_id)}> edit notes </button></td>
+
                         </tr>
                     ))}
                     </tbody>

@@ -47,7 +47,7 @@ app.post("/addbook", async (req, res) => {
 
     const rawUser_id = await db.query("SELECT user_id FROM users WHERE username = ?", [user])
     const user_id = rawUser_id[0][0].user_id
-    console.log("user id", user_id)
+   
 
         
     const addedBook = await db.query("INSERT INTO books (title, author_firstname, author_surname, added_by) VALUES (?, ?, ?, ?)", [title, authorFirstname, authorSurname, user])
@@ -104,6 +104,27 @@ app.get("/bookdetails", async (req, res) => {
     } catch(err) {
         res.send(err)
     }
+})
+
+
+
+app.post("/addnotes", async (req, res) => {
+    console.log("updating...")
+    const user = req.body.user
+    const review = req.body.review
+    console.log("review", review)
+    const favourite = req.body.favourite
+    console.log("favourite", favourite)
+    const book_id = req.body.book_id
+    console.log("book id", book_id)
+    const rawUser_id = await db.query("SELECT user_id FROM users WHERE username = ?", [user])
+    const user_id = rawUser_id[0][0].user_id
+    console.log("user", user_id)
+
+
+    const updated = await db.query("INSERT INTO book_review (reviewer_id, book_id, review, favourite) VALUES (?, ?, ?, ?)", [user_id, book_id, review, favourite])
+    console.log("added notes", updated)
+   
 })
 
 app.delete("/deletebook", async(req, res) => {
