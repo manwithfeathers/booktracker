@@ -1,14 +1,28 @@
 import {useLocation} from "react-router-dom"
 
+import './App.css'
 
 export default function BookDetails() {
     const { state } = useLocation()
-    
-    const title = state.details.title  ? state.details.title : "No title"
-    const review = state.details.review ? state.details.review : "No reviews yet"
-    
+    const details = state.details
+
+    console.log("deets", details)
+
+    if (!details) return <p>No Details</p>
+
     
     
 
-    return <h4>{title}:  {review}</h4>
+    return (<>
+            {details.map(book => (
+                <h3>{book.title}: {book.review}</h3>
+            )
+                
+                
+               
+                
+            
+            )}
+            </>
+            )
 }

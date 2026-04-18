@@ -100,7 +100,7 @@ app.get("/bookdetails", async (req, res) => {
     try {
     const bookDetails = await db.query("SELECT b.title, r.review FROM books AS b JOIN book_review AS r ON b.book_id = r.book_id WHERE b.book_id = ?", [book_id])
 
-    res.send(bookDetails[0])
+    res.send(bookDetails)
     } catch(err) {
         res.send(err)
     }
