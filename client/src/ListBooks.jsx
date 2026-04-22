@@ -81,7 +81,7 @@ export default function ListBooks() {
 
             </div>}
             
-             <div className="justify-center overflow-y-auto max-h-96 w-[600px]">
+             <div className="justify-center overflow-y-auto max-h-96 max-w-700">
                 <table className=" border border-gray-300 table-fixed">
                     <thead>
                         <tr>

@@ -98,7 +98,7 @@ app.get("/showmybooks", async (req, res) => {
 app.get("/bookdetails", async (req, res) => {
     const book_id = req.query.id
     try {
-    const bookDetails = await db.query("SELECT b.title, r.review FROM books AS b JOIN book_review AS r ON b.book_id = r.book_id WHERE b.book_id = ?", [book_id])
+    const bookDetails = await db.query("SELECT b.title, r.review, u.username FROM books AS b LEFT JOIN book_review AS r ON b.book_id = r.book_id LEFT JOIN users AS u ON r.reviewer_id = u.user_id WHERE b.book_id = ?", [book_id])
 
     res.send(bookDetails)
     } catch(err) {
