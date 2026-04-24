@@ -8,7 +8,7 @@ A full stack app for tracking books you've read, built as a learning project to 
 - Mark books as favourites
 - User accounts — each user tracks their own books independently
 
-##Tech stack
+## Tech stack
   Frontend
     React, React Router, Redux Toolkit, Vite
     
