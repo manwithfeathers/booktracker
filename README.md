@@ -9,11 +9,11 @@ A full stack app for tracking books you've read, built as a learning project to 
 - User accounts — each user tracks their own books independently
 
 ## Tech stack
-  Frontend
-    React, React Router, Redux Toolkit, Vite
+### Frontend
+React, React Router, Redux Toolkit, Vite
     
-  Backend
-    Express, MySQL
+### Backend
+Express, MySQL
     
 ## Status
 This is an active work in progress. Core functionality is in place but the project is ongoing — being used to explore authentication, routing, and full stack architecture in React.
