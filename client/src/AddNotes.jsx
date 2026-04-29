@@ -19,6 +19,14 @@ export default function AddNotes() {
     const [review, setReview] = useState("")
     const [favourite, setFavourite] = useState(false)
 
+    const checkForReview = async () => {
+      const checking = await axios.post("http://localhost:8080/checkforreview", {user, book_id})
+      console.log("check for review", checking[0])
+      
+    }
+
+    
+
     const submitHandler = async (e) => {
         e.preventDefault()
         console.log("submitted")
@@ -35,6 +43,8 @@ export default function AddNotes() {
 
     }
 
+    checkForReview()
+
 
     return (
         <>
@@ -43,7 +53,7 @@ export default function AddNotes() {
           <h3 className="pb-6 text-2xl text-center text-white">Add Notes</h3>
           
           <label className="block mb-1 text-xl text-cyan-400" htmlFor="review">Review</label>
-          <textarea className="w-full h-8 p-1 mb-6 focus:outline-none bg-white text-black"  id="review"  value={review} onChange={(e) => setReview(e.target.value)}></textarea>
+          <textarea rows="4" cols="50" className="w-full p-1 mb-6 focus:outline-none bg-white text-black"  id="review"  value={review} onChange={(e) => setReview(e.target.value)}></textarea>
           <label className="block mb-1 text-xl text-cyan-400" htmlFor="favourite">Favourite</label>
           <input className="w-full h-8 p-1 mb-6 focus:outline-none bg-white text-black"  id="favourite" type="checkbox" value={favourite} onChange={(e) => setFavourite(e.target.checked)}></input>
           <div className="flex justify-between">

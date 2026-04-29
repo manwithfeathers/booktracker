@@ -107,23 +107,35 @@ app.get("/bookdetails", async (req, res) => {
 })
 
 
-
-app.post("/addnotes", async (req, res) => {
-    console.log("updating...")
-    const user = req.body.user
-    const review = req.body.review
-    console.log("review", review)
-    const favourite = req.body.favourite
-    console.log("favourite", favourite)
+app.post("/checkforreview", async (req, res) => {
     const book_id = req.body.book_id
-    console.log("book id", book_id)
+    const user = req.body.user
     const rawUser_id = await db.query("SELECT user_id FROM users WHERE username = ?", [user])
     const user_id = rawUser_id[0][0].user_id
-    console.log("user", user_id)
+
+    const checkForReview = await db.query("SELECT review FROM book_review WHERE reviewer_id = ? AND book_id = ?", [user_id, book_id])
+    console.log("checking", checkForReview)
+})
+
+
+app.post("/addnotes", async (req, res) => {
+   
+    const user = req.body.user
+    const review = req.body.review
+   
+    const favourite = req.body.favourite
+   
+    const book_id = req.body.book_id
+   
+    const rawUser_id = await db.query("SELECT user_id FROM users WHERE username = ?", [user])
+    const user_id = rawUser_id[0][0].user_id
+
+   
+  
 
 
     const updated = await db.query("INSERT INTO book_review (reviewer_id, book_id, review, favourite) VALUES (?, ?, ?, ?)", [user_id, book_id, review, favourite])
-    console.log("added notes", updated)
+   
    
 })
 
