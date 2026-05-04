@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <div>
-        <h1 className="text-2xl text-center text-white">Home Page</h1>
+        <h1 className="text-2xl text-center text-white">Welcome to Book Tracker</h1>
         
       </div>
     </>

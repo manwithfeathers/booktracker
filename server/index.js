@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require("cors")
 const mysql = require("mysql2/promise")
+const bcrypt = require("bcrypt")
 const bodyParser = require("body-parser")
 
 
@@ -20,18 +21,21 @@ const db  = mysql.createPool({
 
 });
 
+const saltRounds = 10;
+
 
 app.post("/signup", async (req, res) => {
     const username = req.body.username
     const password = req.body.password
-    try {
-        
-        const logged = await db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, password])
-        res.send({username: username})
-         
-    } catch (err) {
-        console.log(err)
-    }
+    bcrypt.hash(password, saltRounds, (err, hashedPassword)=> {
+        if (err) {
+            res.status(418).send("Couldn't hash password")
+        } else {
+            db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, hashedPassword])
+            res.send({username: username})
+
+        }
+    })
 
 })
 
