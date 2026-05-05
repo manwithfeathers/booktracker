@@ -39,6 +39,30 @@ app.post("/signup", async (req, res) => {
 
 })
 
+app.post("/signin", async (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    await db.query("SELECT * FROM users WHERE username = ?", [username], (err, result) => {
+        if (err) {
+            res.status(418).send(err.message)
+        } else if (result.length < 1) {
+            res.status(418).send("Username doesn't match")
+        } else {
+            bcrypt.compare(password, result[0].password, (err, match) => {
+                if (match) {
+                    res.send({username})
+                }
+                if (!match) {
+                    res.status(418).send("Password doesn't match")
+                }
+            })
+
+        }
+
+        
+    })
+})
+
 app.post("/addbook", async (req, res) => {
     const title = req.body.title
     const authorFirstname = req.body.authorFirstname

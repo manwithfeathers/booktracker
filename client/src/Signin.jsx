@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { signin } from "../store/authSlice"
+import {useDispatch, useSelector} from "react-redux"
+import {Navigate} from "react-router-dom"
+
 import './App.css'
-import axios from "axios"
+
 
 
 export default function Signin() {

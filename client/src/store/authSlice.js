@@ -1,12 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
+
 export const signup = createAsyncThunk("auth/signup", async({username, password}) => {
     try {
         const res = await axios.post("http://localhost:8080/signup", {username, password})
         return res.data
     } catch(err) {
         console.log(err)
+        return thunkAPI.rejecetWithValue(err.message)
+    }
+})
+
+
+export const signin = createAsyncThunk("auth/signin", async({username, password}) => {
+    try {
+        const res = await axios.post("http://localhost:8080/signup", {username, password})
+        return res.data
+    } catch(err) {
+        console.log(err)
+        return thunkAPI.rejecetWithValue(err.response.data)
     }
 })
 
@@ -44,6 +57,19 @@ export const authSlice = createSlice({
             state.loading = false
             state.isLoggedIn = false
             state.error = "An error occurred with signup"
+        }).addCase(signin.fulfilled, (state, action)=> {
+                state.user = action.payload.username
+                state.isLoggedIn = true
+                state.loading = false
+                state.error = null
+        })
+        .addCase(signin.pending, (state, action) => {
+            state.loading = true
+        })
+        .addCase(signin.rejected, (state, action) => {
+            state.loading = false
+            state.isLoggedIn = false
+            state.error = "An error occurred with signin"
         })
     }
 })
