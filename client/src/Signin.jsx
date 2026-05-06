@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { signin } from "../store/authSlice"
+import { signin } from "./store/authSlice"
+
 import {useDispatch, useSelector} from "react-redux"
 import {Navigate} from "react-router-dom"
 
@@ -11,15 +12,16 @@ export default function Signin() {
 
   const [username , setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const user = useSelector(state => state.auth.user)
+  const error = useSelector(state => state.auth.error)
+  const dispatch = useDispatch()
   
   const submitHandler = (e) => {
     e.preventDefault()
-   
-    axios.post("http://localhost:8080/signin", {username: username, password: password}).then((data) => {
-      console.log(data)
-      setUsername("")
-      setPassword("")
-    })
+    dispatch(signin({username, password}))
+    setUsername("")
+    setPassword("")
+    
   }
 
   return (
@@ -35,6 +37,9 @@ export default function Signin() {
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="submit">Submit</button>
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button">Cancel</button>
           </div>
+
+          { error ? <p>{error}</p> : null}
+          { user ? <Navigate to="/profile" replace={true} /> : null }
 
           
 

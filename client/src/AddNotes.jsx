@@ -19,11 +19,11 @@ export default function AddNotes() {
     const [review, setReview] = useState("")
     const [favourite, setFavourite] = useState(false)
 
-    const checkForReview = async () => {
-      const checking = await axios.post("http://localhost:8080/checkforreview", {user, book_id})
-      console.log("check for review", checking[0])
+    // const checkForReview = async () => {
+    //   const checking = await axios.post("http://localhost:8080/checkforreview", {user, book_id})
+    //   console.log("check for review", checking[0])
       
-    }
+    // }
 
     
 
@@ -43,7 +43,7 @@ export default function AddNotes() {
 
     }
 
-    checkForReview()
+    // checkForReview()
 
 
     return (
