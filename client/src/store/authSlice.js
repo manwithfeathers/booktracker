@@ -15,7 +15,7 @@ export const signup = createAsyncThunk("auth/signup", async({username, password}
 
 export const signin = createAsyncThunk("auth/signin", async({username, password}) => {
     try {
-        const res = await axios.post("http://localhost:8080/signup", {username, password})
+        const res = await axios.post("http://localhost:8080/signin", {username, password})
         return res.data
     } catch(err) {
         console.log(err)

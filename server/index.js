@@ -27,40 +27,33 @@ const saltRounds = 10;
 app.post("/signup", async (req, res) => {
     const username = req.body.username
     const password = req.body.password
-    bcrypt.hash(password, saltRounds, (err, hashedPassword)=> {
-        if (err) {
-            res.status(418).send("Couldn't hash password")
-        } else {
-            db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, hashedPassword])
-            res.send({username: username})
-
-        }
-    })
-
+    try {
+        const hashedPassword = await bcrypt.hash(password, saltRounds)
+        await db.query("INSERT INTO users (username, password) VALUES (?, ?)", [username, hashedPassword])
+        res.send({username: username})
+    } catch (err) {
+        res.status(418).send("Sign up failed: " + err.message)
+    }
 })
 
 app.post("/signin", async (req, res) => {
     const username = req.body.username
     const password = req.body.password
-    await db.query("SELECT * FROM users WHERE username = ?", [username], (err, result) => {
-        if (err) {
-            res.status(418).send(err.message)
-        } else if (result.length < 1) {
+    try {
+        const [rows] = await db.query("SELECT * FROM users WHERE username = ?", [username])
+        if (rows.length < 1) {
             res.status(418).send("Username doesn't match")
         } else {
-            bcrypt.compare(password, result[0].password, (err, match) => {
-                if (match) {
-                    res.send({username})
-                }
-                if (!match) {
-                    res.status(418).send("Password doesn't match")
-                }
-            })
-
+            const match = await bcrypt.compare(password, rows[0].password)
+            if (match) {
+                res.send({username})
+            } else {
+                res.status(418).send("Password doesn't match")
+            }
         }
-
-        
-    })
+    } catch (err) {
+        res.status(418).send(err.message)
+    }
 })
 
 app.post("/addbook", async (req, res) => {
@@ -78,7 +71,7 @@ app.post("/addbook", async (req, res) => {
    
 
         
-    const addedBook = await db.query("INSERT INTO books (title, author_firstname, author_surname, added_by) VALUES (?, ?, ?, ?)", [title, authorFirstname, authorSurname, user])
+    const addedBook = await db.query("INSERT INTO books (title, author_firstname, author_surname, added_by) VALUES (?, ?, ?, ?)", [title, authorFirstname, authorSurname, user_id])
     const book_id = addedBook[0].insertId
     console.log(user_id, book_id, review, favourite)
     await db.query("INSERT INTO book_review (reviewer_id, book_id, review, favourite) VALUES (?, ?, ?, ?)", [user_id, book_id, review, favourite])
