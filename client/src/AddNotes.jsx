@@ -3,11 +3,14 @@ import { useState } from 'react'
 import { useSelector } from "react-redux"
 import './App.css'
 import axios from "axios"
+import { Navigate } from "react-router-dom"
+
 
 
 
 
 export default function AddNotes() {
+    
     const user = useSelector((state) => state.auth.user)
     const { state } = useLocation()
 
@@ -17,6 +20,7 @@ export default function AddNotes() {
     const book_id = state.id
    
     const [review, setReview] = useState("")
+    const [reviewed, setReviewed ] = useState(null)
     const [favourite, setFavourite] = useState(false)
 
     // const checkForReview = async () => {
@@ -29,15 +33,19 @@ export default function AddNotes() {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        console.log("submitted")
+        
 
-        const posted = await axios.post("http://localhost:8080/addnotes", {
+        const updated = await axios.post("http://localhost:8080/addnotes", {
             review: review,
             favourite: favourite,
             book_id: book_id,
             user: user
         })
-        console.log(posted)
+
+        console.log("updated", updated)
+
+        setReviewed(true)
+        
 
 
 
@@ -66,6 +74,7 @@ export default function AddNotes() {
           
 
         </form>
+          { reviewed ? <Navigate to="/listbooks" replace={true} /> : null }
         
       </div>
 

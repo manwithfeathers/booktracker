@@ -152,12 +152,9 @@ app.post("/addnotes", async (req, res) => {
    
     const rawUser_id = await db.query("SELECT user_id FROM users WHERE username = ?", [user])
     const user_id = rawUser_id[0][0].user_id
-
    
-  
-
-
     const updated = await db.query("INSERT INTO book_review (reviewer_id, book_id, review, favourite) VALUES (?, ?, ?, ?)", [user_id, book_id, review, favourite])
+    res.send("updated notes")
    
    
 })
