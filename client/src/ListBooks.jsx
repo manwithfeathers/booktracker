@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 
-
-
 export default function ListBooks() {
     const [books, setBooks] = useState([])
     const user = useSelector((state) => state.auth.user)
@@ -38,7 +36,6 @@ export default function ListBooks() {
 
     const deleteBook = async (id) => {
 
-       
         await axios.delete("http://localhost:8080/deletebook", {
             data: {id},
         })
@@ -56,8 +53,6 @@ export default function ListBooks() {
 
     const addNotes = async (id) => {
 
-        
-        
        
         navigate("/addnotes", {state: {id}})
 

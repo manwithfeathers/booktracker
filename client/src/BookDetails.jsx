@@ -35,9 +35,6 @@ export default function BookDetails() {
                             <td className=" border border-gray-300  font-medium text-white  pl-10 pr-10" >{book.username}</td>
                             <td className=" border border-gray-300  font-medium text-white  pl-10 pr-10" >{book.review}</td>
 
-                                                        
-
-                            
 
                         </tr>
                     ))}

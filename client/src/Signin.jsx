@@ -18,9 +18,10 @@ export default function Signin() {
   
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(signin({username, password}))
+    dispatch(signin({username, password})).then(()=> {
     setUsername("")
     setPassword("")
+  })
     
   }
 

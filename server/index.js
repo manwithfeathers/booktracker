@@ -5,6 +5,8 @@ const mysql = require("mysql2/promise")
 const bcrypt = require("bcrypt")
 const bodyParser = require("body-parser")
 
+require("dotenv").config()
+
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -12,10 +14,10 @@ app.use(bodyParser.json())
 
 const db  = mysql.createPool({
   connectionLimit : 10,
-  host            : 'localhost',
-  user            : 'root',
-  password        : 'database',
-  database        : 'BookTracker',
+  host            : process.env.DBHOST,
+  user            : process.env.DBUSER,
+  password        : process.env.DBPASSWORD,
+  database        : process.env.DBNAME,
   queueLimit      : 0,
   waitForConnections: true,
 

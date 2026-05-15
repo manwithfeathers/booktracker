@@ -35,7 +35,7 @@ export default function Signup() {
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button">Cancel</button>
           </div>
           { error ? <p>{error}</p> : null}
-            { user ? <Navigate to="/profile" replace={true} /> : null }
+          { user ? <Navigate to="/profile" replace={true} /> : null }
           
 
         </form>
