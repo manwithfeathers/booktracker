@@ -36,10 +36,17 @@ export default function ListBooks() {
 
     const deleteBook = async (id) => {
 
-        await axios.delete("http://localhost:8080/deletebook", {
+        try {
+        console.log("trying to delete")
+
+        const res = await axios.delete("http://localhost:8080/deletebook", {
             data: {id},
         })
         showBooks()
+    } catch (err){
+        console.log(err.response?.data?.message)
+        }
+       
     }   
 
     const bookDetails = async (id) => {

@@ -166,7 +166,8 @@ app.delete("/deletebook", async(req, res) => {
         await db.query("DELETE FROM books WHERE book_id = ?" , [id])
         res.send({ success: true }) 
     } catch(err) {
-        console.log(err)
+       res.status(500).json({error: "can't delete", message: err.message})
+    
     }
 })
 
