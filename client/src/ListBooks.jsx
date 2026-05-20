@@ -4,6 +4,7 @@ import {useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 
 export default function ListBooks() {
@@ -45,6 +46,7 @@ export default function ListBooks() {
         showBooks()
     } catch (err){
         console.log(err.response?.data?.message)
+        toast.error(err.response?.data?.message || "fuck! not working mate!")
         }
        
     }   
@@ -111,6 +113,7 @@ export default function ListBooks() {
                     ))}
                     </tbody>
                 </table>
+               
             </div>
         </div>
     )

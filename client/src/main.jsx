@@ -16,6 +16,7 @@ import { store } from "./store/store.js"
 import { Provider } from "react-redux"
 import BookDetails from './BookDetails.jsx'
 import AddNotes from './AddNotes.jsx'
+import { Toaster } from 'react-hot-toast'
 
 const router = createBrowserRouter(
   createRoutesFromElements((
@@ -47,6 +48,7 @@ root.render(
   <StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
+      <Toaster postition="top-right"></Toaster>
     </Provider>
   </StrictMode>,
 )
