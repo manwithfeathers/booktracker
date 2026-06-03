@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 
 export default function ListBooks() {
     const [books, setBooks] = useState([])
+    const [view, setView] = useState("all")
     const user = useSelector((state) => state.auth.user)
     const  navigate = useNavigate()
     
@@ -79,11 +80,12 @@ export default function ListBooks() {
 
     return (
        <div className="mx-auto w-full max-w-5xl mt-16 px-6">
-            { user && <div>
-                <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={showBooks}>show all</button>
-                <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={showMyBooks}>my books</button>
-
-            </div>}
+            { user && 
+           <div className="flex mb-4 rounded overflow-hidden border border-cyan-400 w-fit">
+                <button className={`px-4 py-1.5 text-sm transition-colors ${view === "all" ? "bg-cyan-400 text-black" : "text-cyan-400 hover:bg-cyan-400/20"}`} onClick={() => { setView("all"); showBooks(); }}>All books</button>
+                <button className={`px-4 py-1.5 text-sm transition-colors ${view === "mine" ? "bg-cyan-400 text-black" : "text-cyan-400 hover:bg-cyan-400/20"}`} onClick={() => { setView("mine"); showMyBooks(); }}>My books</button>
+            </div>
+            }
             
              <div>
                 <table className="w-full border-collapse">
