@@ -6,9 +6,6 @@ import axios from "axios"
 import { Navigate } from "react-router-dom"
 
 
-
-
-
 export default function AddNotes() {
     
     const user = useSelector((state) => state.auth.user)
@@ -29,8 +26,8 @@ export default function AddNotes() {
       
     // }
 
-    
-
+  
+  
     const submitHandler = async (e) => {
         e.preventDefault()
         
@@ -45,10 +42,7 @@ export default function AddNotes() {
         console.log("updated", updated)
 
         setReviewed(true)
-        
-
-
-
+      
     }
 
     // checkForReview()
@@ -66,7 +60,7 @@ export default function AddNotes() {
           <input className="w-full h-8 p-1 mb-6 focus:outline-none bg-white text-black"  id="favourite" type="checkbox" value={favourite} onChange={(e) => setFavourite(e.target.checked)}></input>
           <div className="flex justify-between">
             <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="submit">Submit</button>
-            <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button">Cancel</button>
+            <button className="px-3 py-1 rounded-sm bg-cyan-400 text-black" type="button" onClick={() => setReviewed(true)}>Cancel</button>
           </div>
         
             
